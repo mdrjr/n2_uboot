@@ -5,8 +5,8 @@
 
 bpart=`mount | grep media/boot | awk '{print $1}' | sed s/"p1"//g`
 
-UBOOT=/usr/share/n2_uboot/u-boot.bin
-
-dd if=$UBOOT of=$bpart conv=fsync,notrunc bs=512 seek=1
-
-sync
+if [[ $bpart == "/dev/mmcblk"* ]]; then
+    UBOOT=/usr/share/n2_uboot/u-boot.bin
+    dd if=$UBOOT of=$bpart conv=fsync,notrunc bs=512 seek=1
+    sync
+fi
